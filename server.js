@@ -18,5 +18,9 @@ app.get('/hello', (req, res) => {
   res.render('pages/index');
 });
 
+app.get('/new', (req, res) => {
+  res.render('pages/searches/new');
+})
+
 
 app.listen(PORT, () => console.log(PORT));
