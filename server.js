@@ -14,6 +14,9 @@ app.use(express.static('./public'));
 // server config
 app.set('view engine', 'ejs');
 
+app.get('/hello', (req, res) => {
+  res.render('pages/index');
+});
 
 
 app.listen(PORT, () => console.log(PORT));
