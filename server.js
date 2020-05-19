@@ -65,7 +65,7 @@ function searchBook(req, res) {
 
 function Book(obj) {
   this.title = obj.title ? obj.title : 'Book Title';
-  this.author = obj.authors ? obj.authors[0] : 'Author';
+  this.authors = obj.authors ? obj.authors : 'Author';
   this.description = obj.description ? obj.description : 'Description unavailable';
   
   // prevent mixed content warnings when API returns http instead of https
