@@ -14,7 +14,7 @@ app.use(express.static('./public'));
 // server config
 app.set('view engine', 'ejs');
 
-app.get('/hello', (req, res) => {
+app.get('/', (req, res) => {
   res.render('pages/index');
 });
 
@@ -24,6 +24,14 @@ app.get('/searches/new', (req, res) => {
 
 app.get('searches/show', (req, res) => {
   res.render('pages/searches/show');
+})
+
+app.get('pages/error', (req, res) => {
+  res.render('pages/error');
+})
+
+app.get('*', (req, res) => {
+  res.render('pages/error');
 })
 
 app.post('/searches', searchBook);
@@ -51,15 +59,22 @@ function searchBook(req, res) {
       res.render('pages/searches/show', { 'books': books });
     })
     .catch((error) => {
-      res.send(error);
+      res.render('/pages/error', { 'error' : error })
     })
 }
 
 function Book(obj) {
   this.title = obj.title ? obj.title : 'Book Title';
   this.author = obj.authors ? obj.authors[0] : 'Author';
+  this.description = obj.description ? obj.description : 'Description unavailable';
+  
+  // prevent mixed content warnings when API returns http instead of https
+  if (obj.imageLinks.thumbnail) {
+    if (obj.imageLinks.thumbnail[4] === ':'){
+      obj.imageLinks.thumbnail = obj.imageLinks.thumbnail.split(':').join('s:');
+    }
+  }
   this.image = obj.imageLinks.thumbnail ? obj.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
-  this.description = obj.description ? obj.description : 'Lorem epsum...';
 }
 
 
