@@ -6,12 +6,12 @@
   <title>New</title>
 </head>
 <body>
-  <form action="/new" method="GET">
-    <legend>What book are you trying to find?</legend>
-    <label for="book-search">Title</label>
-    <input type="text" name="book-search">
-    <label for="author-search">Author</label>
-    <input type="text" name="author-search">
+  <form action="/searches" method="POST">
+    <input type="text" name="search[keyword]" placeholder="Search for a book">
+    <label for="title">Title</label>
+    <input type="radio" name="search[type]" value="title">
+    <label for="author">Author</label>
+    <input type="radio" name="search[type]" value="author">
     <input type="submit">
   </form>
 </body>
