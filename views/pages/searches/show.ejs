@@ -1,0 +1,13 @@
+<%- include('../../layout/header.ejs') %>
+
+<ul>
+  <li>
+    <% books.forEach(book => { %>
+    <%- include('../books/detail.ejs', {
+        book,
+        short_description: true,
+        show_save_btn : true }) %>
+    <% }) %>
+  </li>
+</ul>
+<%- include('../../layout/footer.ejs') %>

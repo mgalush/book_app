@@ -10,20 +10,21 @@ Search books and add or remove them from your collection.
 Git clone and npm install for the application dependencies.
 
 ## Architecture
-JavaScript, Node.js, Express, EJS, superagent, dotenv, Github, Heroku, Google Books API
+JavaScript, Node.js, Express, EJS, superagent, dotenv, Github, postgresSQL, Heroku, Google Books API
 
-## Change Log
-
-Number and name of feature: ________________________________
-
-Estimate of time needed to complete: _____
-
-Start time: _____
-
-Finish time: _____
-
-Actual time needed to complete: _____
+Schema for table:
+```
+CREATE TABLE books(
+  id SERIAL PRIMARY KEY,
+  author VARCHAR(255),
+  title VARCHAR(255),
+  isbn VARCHAR(255),
+  image_url VARCHAR(255),
+  description VARCHAR(511),
+  bookshelf VARCHAR(255)
+)
+```
 
 
 ## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+Collaborated with Ashley Biermann, Bade Habib, and Dave Wolfe

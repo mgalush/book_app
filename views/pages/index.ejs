@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/base.css">
-  <link rel="stylesheet" href="styles/layout.css">
-  <link rel="stylesheet" href="styles/modules.css">
-  <title>Book App</title>
-</head>
-<body>
-  <h1>Hello World</h1>
-  
-</body>
-</html>
+<%- include('../layout/header.ejs') %>
+
+  <h1 class="bookshelf_header">Your bookshelf:</h1>
+  <ul class="bookshelf_book">
+    <li>
+      <% books.forEach(book => { %>
+      <a href="/books/<%= book.id %>">
+        <%- include('./books/detail.ejs', { book, short_description: true }) %>
+      </a>
+      <% }) %>
+    </li>
+  </ul>
+<%- include('../layout/footer.ejs') %>
