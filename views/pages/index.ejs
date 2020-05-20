@@ -11,6 +11,17 @@
 </head>
 <body>
   <h1>Welcome to Open Shelf: A Book Wiki</h1>
-  
+  <p>Results: <%= totalBookCount %></p>
+  <ul>
+    <li>
+    <% books.forEach(value => { %>
+      <h2><%= value.title %></h2>
+      <h3><%= value.authors %></h3>
+      <img src=<%= value.image %> alt="thumnail for <%= value.title %>">
+      <p>ISBN: <%= value.isbn %></p>
+      <p><%= value.description %></p>
+    <% }) %>
+   </li>
+  </ul>
 </body>
 </html>
