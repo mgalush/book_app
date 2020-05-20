@@ -66,7 +66,7 @@ function searchBook(req, res) {
       const books = dataFromAPI.map((value) => {
         const googleBook = value.volumeInfo;
 
-        // prevent mixed content warnings when API returns http instead of https
+        // prevent mixed content warnings when API returns http instead of https on images
         let image_url = googleBook.imageLinks.thumbnail;
         if (image_url && image_url[4] === ':') {
           image_url = image_url.split(':').join('s:');
