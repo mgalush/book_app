@@ -159,6 +159,11 @@
   text-align: center;
 }
 
+.save_book > .submit {
+  background-color: white;
+  border-radius: 5px;;
+}
+
 /* Bookshelf */
 
 .bookshelf_header {

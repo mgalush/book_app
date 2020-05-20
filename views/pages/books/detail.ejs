@@ -1,7 +1,17 @@
-  <section class="book">
-    <h2 class="book_title"><%= book.title %></h2>
-    <h3 class="book_author"><%= book.author %></h3>
-    <img src="<%= book.image_url %>" alt="thumbnail for <%= book.title %>" class="book_image">
-    <p class="book_isbn">ISBN: <%= book.isbn %></p>
+<section class="book">
+  <h2 class="book_title"><%= book.title %></h2>
+  <h3 class="book_author"><%= book.author %></h3>
+  <img src="<%= book.image_url %>" alt="thumbnail for <%= book.title %>" class="book_image">
+  <p class="book_isbn">ISBN: <%= book.isbn %></p>
   <p class="book_description <%= locals.short_description ? 'shorten_description' : '' %>"><%= book.description %></p>
-  </section>
+  <% if (locals.show_save_btn) { %>
+    <form action="/books" method="POST" class="save_book">
+      <input type="hidden" name="book[title]" value="<%= book.title %>">
+      <input type="hidden" name="book[author]" value="<%= book.author %>">
+      <input type="hidden" name="book[isbn]" value="<%= book.isbn %>">
+      <input type="hidden" name="book[image_url]" value="<%= book.image_url %>">
+      <input type="hidden" name="book[description]" value="<%= book.description %>">
+      <input type="submit" value="Save book" class="submit">
+    </form>
+  <% } %>
+</section>
