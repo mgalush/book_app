@@ -119,6 +119,14 @@
   width: 60%;
 }
 
+.search_form > * {
+  margin: 0 0 10px 0;
+}
+
+.search_form > *:last-child {
+  margin: 0;
+}
+
 .search_field {
   height: 50px;
   border-radius: 5px;
@@ -131,15 +139,15 @@
 .radio_btn {
   display: inline;
   padding: 10px;
-  margin: 10px 0px;
   border-radius: 5px;
   color: black;
   border: 1px solid gray;
   height: 30px;
 }
 
+
 .submit_btn {
-  height: 50px;
+  min-height: 50px;
   border-radius: 5px;
   background-color: #550000;
   color: #fff;
