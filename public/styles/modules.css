@@ -130,10 +130,7 @@
 .search_field {
   height: 50px;
   border-radius: 5px;
-}
-
-.search_field::placeholder {
-  font-size: 2em;
+  font-size: 1em;
 }
 
 .radio_btn {
