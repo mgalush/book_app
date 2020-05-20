@@ -1,5 +1,7 @@
-  <h2><%= book.title %></h2>
-  <h3><%= book.author %></h3>
-  <img src="<%= book.image_url %>" alt="thumbnail for <%= book.title %>">
-  <p>ISBN: <%= book.isbn %></p>
-  <p><%= book.description %></p>
+  <section class="book">
+    <h2 class="book_title"><%= book.title %></h2>
+    <h3 class="book_author"><%= book.author %></h3>
+    <img src="<%= book.image_url %>" alt="thumbnail for <%= book.title %>" class="book_image">
+    <p class="book_isbn">ISBN: <%= book.isbn %></p>
+  <p class="book_description <%= locals.short_description ? 'shorten_description' : '' %>"><%= book.description %></p>
+  </section>

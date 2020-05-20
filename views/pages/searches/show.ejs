@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Books</title>
-</head>
-<body>
+<%- include('../../layout/header.ejs') %>
+
   <ul>
     <li>
     <% books.forEach(book => { %>
-      <%- include('../books/detail.ejs', {book}) %>
-      <form action="/books" method="POST">
+      <%- include('../books/detail.ejs', {book, short_description: true}) %>
+      <form action="/books" method="POST" class="save_book">
         <input type="hidden" name="book[title]" value="<%= book.title %>">
         <input type="hidden" name="book[author]" value="<%= book.author %>">
         <input type="hidden" name="book[isbn]" value="<%= book.isbn %>">
@@ -21,5 +15,4 @@
     <% }) %>
    </li>
   </ul>
-</body>
-</html>
+  <%- include('../../layout/footer.ejs') %>

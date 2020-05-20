@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New</title>
-</head>
-<body>
-  <form action="/searches" method="POST">
-    <input type="text" name="search[keyword]" placeholder="Search for a book">
+<%- include('../../layout/header.ejs') %>
+
+  <form action="/searches" method="POST" class="search_form">
+    <input type="text" name="search[keyword]" placeholder="Enter a title or author" class="search_field">
+    <div class="radio_btn">
     <label for="title">Title</label>
     <input type="radio" name="search[type]" value="title">
+    </div>
+    <div class="radio_btn">
     <label for="author">Author</label>
     <input type="radio" name="search[type]" value="author">
-    <input type="submit">
+    </div>
+    <button class="submit_btn" type="submit">Search the Google Books API</button>
   </form>
-</body>
-</html>
+
+  <%- include('../../layout/footer.ejs') %>

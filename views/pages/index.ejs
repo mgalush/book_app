@@ -1,16 +1,13 @@
 <%- include('../layout/header.ejs') %>
 
-<h1>Welcome to Open Shelf: A Book Wiki</h1>
-<p>Results: <%= totalBookCount %></p>
-<ul>
-  <li>
-    <% books.forEach(book => { %>
-    <a href="/books/<%= book.id %>">
-      <%- include('./books/detail.ejs', {book}) %>
-    </a>
-    <% }) %>
-  </li>
-</ul>
-</body>
-
-</html>
+  <h1 class="bookshelf_header">Your bookshelf:</h1>
+  <ul class="bookshelf_book">
+    <li>
+      <% books.forEach(book => { %>
+      <a href="/books/<%= book.id %>">
+        <%- include('./books/detail.ejs', { book, short_description: true }) %>
+      </a>
+      <% }) %>
+    </li>
+  </ul>
+<%- include('../layout/footer.ejs') %>

@@ -74,10 +74,10 @@ function searchBook(req, res) {
 
         return new Book({
           title: googleBook.title,
-          author: googleBook.authors[0],
+          author: (googleBook.authors && googleBook.authors.length) ? googleBook.authors[0] : '',
           description: googleBook.description,
-          image_url: image_url,
-          isbn: googleBook.industryIdentifiers
+          image_url : image_url,
+          isbn: (googleBook.industryIdentifiers && googleBook.industryIdentifiers.length)
             ? googleBook.industryIdentifiers[0].identifier
             : '',
         });
