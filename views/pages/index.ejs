@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,19 +10,19 @@
   <link rel="stylesheet" href="styles/modules.css">
   <title>Book App</title>
 </head>
+
 <body>
   <h1>Welcome to Open Shelf: A Book Wiki</h1>
   <p>Results: <%= totalBookCount %></p>
   <ul>
     <li>
-    <% books.forEach(value => { %>
-      <h2><%= value.title %></h2>
-      <h3><%= value.authors %></h3>
-      <img src=<%= value.image %> alt="thumnail for <%= value.title %>">
-      <p>ISBN: <%= value.isbn %></p>
-      <p><%= value.description %></p>
-    <% }) %>
-   </li>
+      <% books.forEach(book => { %>
+      <a href="/books/<%= book.id %>">
+        <%- include('./books/detail.ejs', {book}) %>
+      </a>
+      <% }) %>
+    </li>
   </ul>
 </body>
+
 </html>

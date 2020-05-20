@@ -27,12 +27,14 @@ app.get('/searches/new', (req, res) => {
   res.render('pages/searches/new');
 })
 
-app.get('searches/show', (req, res) => {
+app.get('/searches/show', (req, res) => {
   res.render('pages/searches/show');
 })
 
-app.get('pages/error', (req, res) => {
-  res.render('pages/error');
+app.get('/books/:id', bookDetails);
+
+app.get('/error', (req, res) => {
+  res.status(404).render('pages/error');
 })
 
 app.get('*', (req, res) => {
@@ -76,6 +78,16 @@ function renderHomePage(req, res) {
         totalBookCount : result.rows.length,
       });
     })
+}
+
+function bookDetails(req, res) {
+  client.query('SELECT * FROM books WHERE id=$1', [req.params.id])
+    .then(dataFromSql => {
+      if (dataFromSql.rows.length === 0) {
+        res.redirect('/error');
+      }
+      res.render('pages/books/show', { book : dataFromSql.rows[0] });
+    });
 }
 
 function Book(obj) {
