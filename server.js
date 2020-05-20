@@ -74,12 +74,17 @@ function searchBook(req, res) {
 
         return new Book({
           title: googleBook.title,
-          author: (googleBook.authors && googleBook.authors.length) ? googleBook.authors[0] : '',
+          author:
+            googleBook.authors && googleBook.authors.length
+              ? googleBook.authors[0]
+              : '',
           description: googleBook.description,
-          image_url : image_url,
-          isbn: (googleBook.industryIdentifiers && googleBook.industryIdentifiers.length)
-            ? googleBook.industryIdentifiers[0].identifier
-            : '',
+          image_url: image_url,
+          isbn:
+            googleBook.industryIdentifiers &&
+            googleBook.industryIdentifiers.length
+              ? googleBook.industryIdentifiers[0].identifier
+              : '',
         });
       });
       res.render('pages/searches/show', { books: books });
@@ -107,6 +112,9 @@ function bookDetails(req, res) {
         res.redirect('/error');
       }
       res.render('pages/books/show', { book: dataFromSql.rows[0] });
+    })
+    .catch((error) => {
+      console.error(error);
     });
 }
 
@@ -122,10 +130,15 @@ function saveBook(req, res) {
     book.description,
     'myBookshelf',
   ];
-  client.query(sqlQuery, valueArray).then((dataFromSql) => {
-    const id = dataFromSql.rows[0].id;
-    res.redirect(`/books/${id}`);
-  });
+  client
+    .query(sqlQuery, valueArray)
+    .then((dataFromSql) => {
+      const id = dataFromSql.rows[0].id;
+      res.redirect(`/books/${id}`);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 function Book(obj) {
