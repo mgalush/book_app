@@ -8,12 +8,16 @@
 <body>
   <ul>
     <li>
-    <% books.forEach(value => { %>
-      <h2><%= value.title %></h2>
-      <h3><%= value.authors %></h3>
-      <img src=<%= value.image %> alt="thumnail for <%= value.title %>">
-      <p>ISBN: <%= value.isbn %></p>
-      <p><%= value.description %></p>
+    <% books.forEach(book => { %>
+      <%- include('../books/detail.ejs', {book}) %>
+      <form action="/books" method="POST">
+        <input type="hidden" name="book[title]" value="<%= book.title %>">
+        <input type="hidden" name="book[author]" value="<%= book.author %>">
+        <input type="hidden" name="book[isbn]" value="<%= book.isbn %>">
+        <input type="hidden" name="book[image_url]" value="<%= book.image_url %>">
+        <input type="hidden" name="book[description]" value="<%= book.description %>">
+        <input type="submit" value="Save book">
+      </form>
     <% }) %>
    </li>
   </ul>
