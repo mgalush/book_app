@@ -6,7 +6,7 @@ require('dotenv').config();
 const methodOverride = require('method-override');
 
 // configs
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const pg = require('pg');
 app.use(methodOverride('_overrideMethod'));
