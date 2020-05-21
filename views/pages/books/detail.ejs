@@ -16,6 +16,7 @@
   <% } %>
 
   <% if(locals.show_update_delete_btns) { %>
+    <a href="/books/<%=book.id%>/update"><button class="update_btn">Update details</button></a>
     <form action="/books?_overrideMethod=DELETE" method="POST">
       <input type="hidden" value="<%= book.id %>" name="book[id]">
       <input type="submit" value="Delete book">

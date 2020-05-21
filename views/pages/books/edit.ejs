@@ -1,0 +1,13 @@
+<%- include('../../layout/header.ejs') %>
+
+<form action="/books?_overrideMethod=PUT" method="POST" class="update_form" contenteditable="true">
+  <input type="hidden" value="<%= book.id %>" name="book[id]">
+  <input type="text" name="book[title]" value="<%= book.title %>">
+  <input type="text" name="book[author]" value="<%= book.author %>">
+  <input type="text" name="book[isbn]" value="<%= book.isbn %>">
+  <input type="text" name="book[image_url]" value="<%= book.image_url %>">
+  <input type="text" name="book[description]" value="<%= book.description %>">
+  <input type="submit" value="Update details" class="update_submit_btn">
+</form>
+
+<%- include('../../layout/footer.ejs') %>

@@ -35,6 +35,13 @@ app.get('/searches/show', (req, res) => {
 
 app.get('/books/:id', bookDetails);
 
+app.get('/books/:id/update', (req, res) => {
+  getBookById(req.params.id)
+  .then((dataFromSql) => {
+    res.render('pages/books/edit', {book: dataFromSql.rows[0]});
+  })
+});
+
 app.get('/error', (req, res) => {
   res.status(404).render('pages/error');
 });
@@ -46,6 +53,8 @@ app.get('*', (req, res) => {
 app.post('/searches', searchBook);
 
 app.post('/books', saveBook);
+
+app.put('/books', updateBook);
 
 app.delete('/books', deleteBook);
 
@@ -109,8 +118,7 @@ function renderHomePage(req, res) {
 }
 
 function bookDetails(req, res) {
-  client
-    .query('SELECT * FROM books WHERE id=$1', [req.params.id])
+  getBookById(req.params.id)
     .then((dataFromSql) => {
       if (dataFromSql.rows.length === 0) {
         res.redirect('/error');
@@ -145,10 +153,36 @@ function saveBook(req, res) {
     });
 }
 
+function getBookById(id) {
+  return client.query('SELECT * FROM books WHERE id=$1', [id])
+};
+
+function updateBook(req, res) {
+const sqlQuery = 'UPDATE books SET author=$2, title=$3, description=$4, image_url=$5, isbn=$6, bookshelf=$7 WHERE id=$1';
+const book = (req.body.book);
+const valueArray = [
+  book.id,
+  book.author,
+  book.title,
+  book.description,
+  book.image_url,
+  book.isbn,
+  'myBookshelf',
+];
+client.query(sqlQuery, valueArray)
+  .then((dataFromSql) => {
+    res.redirect('/');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
 function deleteBook(req, res) {
   const sqlQuery = 'DELETE FROM books WHERE id=$1';
   const valueArray = [req.body.book.id];
-  client.query(sqlQuery, valueArray)
+  client
+    .query(sqlQuery, valueArray)
     .then((dataFromSql) => {
       res.redirect('/');
     })
@@ -156,7 +190,6 @@ function deleteBook(req, res) {
       console.error(error);
     });
 }
-
 
 function Book(obj) {
   this.title = obj.title ? obj.title : 'Book Title';
