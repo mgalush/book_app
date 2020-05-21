@@ -109,7 +109,7 @@ function searchBook(req, res) {
 }
 
 function renderHomePage(req, res) {
-  client.query('SELECT * FROM books').then((result) => {
+  client.query('SELECT * FROM books ORDER BY id').then((result) => {
     res.render('pages/index', {
       books: result.rows,
       totalBookCount: result.rows.length,

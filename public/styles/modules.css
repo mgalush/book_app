@@ -183,6 +183,20 @@
   font-size: 1em;
 }
 
+.update_and_delete_section {
+  margin-top: 10px;
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+}
+
+.update_and_delete_btns {
+  height: 30px;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+
 /* Bookshelf */
 
 .bookshelf_header {
