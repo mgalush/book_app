@@ -1,7 +1,7 @@
 <%- include('../../layout/header.ejs') %>
 
 <a href="/" class="back_btn">My Bookshelf</a>
-<%- include('./detail.ejs', {book}) %>
 
+<%- include('./detail.ejs', {book, show_update_delete_btns : true}) %>
 
 <%- include('../../layout/footer.ejs') %>

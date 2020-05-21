@@ -3,11 +3,13 @@
 const express = require('express');
 const superagent = require('superagent');
 require('dotenv').config();
+const methodOverride = require('method-override');
 
 // configs
 const PORT = process.env.port || 3000;
 const app = express();
 const pg = require('pg');
+app.use(methodOverride('_overrideMethod'));
 
 // server config
 app.set('view engine', 'ejs');
@@ -44,6 +46,8 @@ app.get('*', (req, res) => {
 app.post('/searches', searchBook);
 
 app.post('/books', saveBook);
+
+app.delete('/books', deleteBook);
 
 function searchBook(req, res) {
   const url = 'https://www.googleapis.com/books/v1/volumes';
@@ -140,6 +144,19 @@ function saveBook(req, res) {
       console.error(error);
     });
 }
+
+function deleteBook(req, res) {
+  const sqlQuery = 'DELETE FROM books WHERE id=$1';
+  const valueArray = [req.body.book.id];
+  client.query(sqlQuery, valueArray)
+    .then((dataFromSql) => {
+      res.redirect('/');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 
 function Book(obj) {
   this.title = obj.title ? obj.title : 'Book Title';

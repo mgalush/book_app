@@ -14,4 +14,11 @@
       <input type="submit" value="Save book" class="submit">
     </form>
   <% } %>
+
+  <% if(locals.show_update_delete_btns) { %>
+    <form action="/books?_overrideMethod=DELETE" method="POST">
+      <input type="hidden" value="<%= book.id %>" name="book[id]">
+      <input type="submit" value="Delete book">
+    </form>
+  <% } %>
 </section>
