@@ -5,13 +5,24 @@
   <p class="book_isbn">ISBN: <%= book.isbn %></p>
   <p class="book_description <%= locals.short_description ? 'shorten_description' : '' %>"><%= book.description %></p>
   <% if (locals.show_save_btn) { %>
-    <form action="/books" method="POST" class="save_book">
-      <input type="hidden" name="book[title]" value="<%= book.title %>">
-      <input type="hidden" name="book[author]" value="<%= book.author %>">
-      <input type="hidden" name="book[isbn]" value="<%= book.isbn %>">
-      <input type="hidden" name="book[image_url]" value="<%= book.image_url %>">
-      <input type="hidden" name="book[description]" value="<%= book.description %>">
-      <input type="submit" value="Save book" class="submit">
+  <form action="/books" method="POST" class="save_book">
+    <input type="hidden" name="book[title]" value="<%= book.title %>">
+    <input type="hidden" name="book[author]" value="<%= book.author %>">
+    <input type="hidden" name="book[isbn]" value="<%= book.isbn %>">
+    <input type="hidden" name="book[image_url]" value="<%= book.image_url %>">
+    <input type="hidden" name="book[description]" value="<%= book.description %>">
+    <input type="submit" value="Save book" class="submit">
+  </form>
+  <% } %>
+
+  <% if(locals.show_update_delete_btns) { %>
+  <section class="update_and_delete_section">
+    <a href="/books/<%=book.id%>/update"><button class="update_and_delete_btns">Update details</button></a>
+    <form action="/books?_overrideMethod=DELETE" method="POST">
+      <input type="hidden" value="<%= book.id %>" name="book[id]">
+      <button type="submit" class="update_and_delete_btns">
+        Delete book</button>
     </form>
+  </section>
   <% } %>
 </section>

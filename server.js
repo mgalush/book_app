@@ -3,11 +3,13 @@
 const express = require('express');
 const superagent = require('superagent');
 require('dotenv').config();
+const methodOverride = require('method-override');
 
 // configs
 const PORT = process.env.port || 3000;
 const app = express();
 const pg = require('pg');
+app.use(methodOverride('_overrideMethod'));
 
 // server config
 app.set('view engine', 'ejs');
@@ -33,6 +35,13 @@ app.get('/searches/show', (req, res) => {
 
 app.get('/books/:id', bookDetails);
 
+app.get('/books/:id/update', (req, res) => {
+  getBookById(req.params.id)
+  .then((dataFromSql) => {
+    res.render('pages/books/edit', {book: dataFromSql.rows[0]});
+  })
+});
+
 app.get('/error', (req, res) => {
   res.status(404).render('pages/error');
 });
@@ -44,6 +53,10 @@ app.get('*', (req, res) => {
 app.post('/searches', searchBook);
 
 app.post('/books', saveBook);
+
+app.put('/books', updateBook);
+
+app.delete('/books', deleteBook);
 
 function searchBook(req, res) {
   const url = 'https://www.googleapis.com/books/v1/volumes';
@@ -96,17 +109,21 @@ function searchBook(req, res) {
 }
 
 function renderHomePage(req, res) {
-  client.query('SELECT * FROM books').then((result) => {
+  console.log('searching home');
+  client.query('SELECT * FROM books ORDER BY id').then((result) => {
     res.render('pages/index', {
       books: result.rows,
       totalBookCount: result.rows.length,
     });
+  })
+  .catch((error) => {
+    console.error(error);
+    res.render('pages/error', { error: error });
   });
 }
 
 function bookDetails(req, res) {
-  client
-    .query('SELECT * FROM books WHERE id=$1', [req.params.id])
+  getBookById(req.params.id)
     .then((dataFromSql) => {
       if (dataFromSql.rows.length === 0) {
         res.redirect('/error');
@@ -135,6 +152,44 @@ function saveBook(req, res) {
     .then((dataFromSql) => {
       const id = dataFromSql.rows[0].id;
       res.redirect(`/books/${id}`);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+function getBookById(id) {
+  return client.query('SELECT * FROM books WHERE id=$1', [id])
+};
+
+function updateBook(req, res) {
+const sqlQuery = 'UPDATE books SET author=$2, title=$3, description=$4, image_url=$5, isbn=$6, bookshelf=$7 WHERE id=$1';
+const book = (req.body.book);
+const valueArray = [
+  book.id,
+  book.author,
+  book.title,
+  book.description,
+  book.image_url,
+  book.isbn,
+  'myBookshelf',
+];
+client.query(sqlQuery, valueArray)
+  .then((dataFromSql) => {
+    res.redirect('/');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
+function deleteBook(req, res) {
+  const sqlQuery = 'DELETE FROM books WHERE id=$1';
+  const valueArray = [req.body.book.id];
+  client
+    .query(sqlQuery, valueArray)
+    .then((dataFromSql) => {
+      res.redirect('/');
     })
     .catch((error) => {
       console.error(error);

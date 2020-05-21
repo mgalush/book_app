@@ -109,7 +109,7 @@
 }
 
 
-/* Form */
+/* Search Form */
 
 .search_form {
   padding-top: 80px;
@@ -142,7 +142,6 @@
   height: 30px;
 }
 
-
 .submit_btn {
   min-height: 50px;
   border-radius: 5px;
@@ -158,8 +157,45 @@
 
 .save_book > .submit {
   background-color: white;
-  border-radius: 5px;;
+  border-radius: 5px;
 }
+
+/* Update Book Form */
+
+.update_form {
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.update_form > * {
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.update_submit_btn {
+  background-color: #550000;
+  color: white;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.update_and_delete_section {
+  margin-top: 10px;
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+}
+
+.update_and_delete_btns {
+  height: 30px;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
 
 /* Bookshelf */
 
