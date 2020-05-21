@@ -109,11 +109,16 @@ function searchBook(req, res) {
 }
 
 function renderHomePage(req, res) {
+  console.log('searching home');
   client.query('SELECT * FROM books ORDER BY id').then((result) => {
     res.render('pages/index', {
       books: result.rows,
       totalBookCount: result.rows.length,
     });
+  })
+  .catch((error) => {
+    console.error(error);
+    res.render('pages/error', { error: error });
   });
 }
 
